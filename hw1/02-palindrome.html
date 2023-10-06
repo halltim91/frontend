@@ -10,16 +10,16 @@
     <script defer src="02-palindrome.js"></script>
   </head>
   <body>
-    <main>
-      <section>
-        <h1>Exercise 02 - Palindrome</h1>
-        <div>
-          <label>Enter a positive number:</label>
-          <input type="number" />
+    <main class="bg-primary vh-100 overflow-hidden">
+      <section class="container bg-light col-md-6 mt-5 mx-auto py-3">
+        <h1 class="font-weight-bold">Exercise 02 - Palindrome</h1>
+        <div class="pt-3">
+          <label for="numberInput">Enter a positive number:</label>
+          <input id="numberInput" type="number" />
         </div>
-        <div>
+        <div class="pt-3">
           <p>Is this a palindrome?</p>
-          <div></div>
+          <div id="status"></div>
         </div>
       </section>
     </main>

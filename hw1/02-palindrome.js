@@ -1,5 +1,5 @@
 const elem = document.querySelector('input');
-const output = document.querySelector('#status')
+const output = document.getElementById('status');
 
 elem.addEventListener('input', handleInput);
 function handleInput(event) {

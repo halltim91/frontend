@@ -6,10 +6,9 @@ textInput.addEventListener('keydown', handleKeyDown);
 
 function handleKeyDown(event) {
     if(event.key === 'Enter'){
-        const word = event.target.value.trim().split(' ')[0];
+        const word = event.target.value.trim().split(' ')[0]; //ignores anything after first word
         if(word.length > 0){
-            const temp = origText.replaceAll(word, "<mark>" + word + "</mark>");
-            text.innerHTML = temp;
+            text.innerHTML = origText.replaceAll(word, '<mark>' + word + '</mark>');
         } else {
             text.innerHTML = origText;
         }

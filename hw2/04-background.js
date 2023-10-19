@@ -35,11 +35,11 @@ function setBackgroundColor(){
 function updateButton(btn, isRunning){
     if(isRunning){
         btn.value = 'Stop';
-        btn.classList.add('bg-danger');
-        btn.classList.remove('bg-primary');
+        btn.classList.add('btn-danger');
+        btn.classList.remove('btn-primary');
     } else {
         btn.value = 'Start';
-        btn.classList.add('bg-primary');
-        btn.classList.remove('bg-danger');
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-danger');
     }
 }

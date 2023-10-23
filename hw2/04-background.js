@@ -28,7 +28,7 @@ function setBackgroundColor(){
     const g = Math.floor(Math.random() * 255);
     const b = Math.floor(Math.random() * 255);
     const a =  .5 + (Math.random() * .4);
-    const color = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+    const color = `rgba( ${r}, ${g}, ${b}, ${a})`;
     body.style.backgroundColor = color;
 }
 

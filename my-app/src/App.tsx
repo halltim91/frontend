@@ -3,6 +3,7 @@ import Layout from './pages/layout';
 import Search from './pages/search';
 import Home from './pages/home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Houses from './pages/houses';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home />} />
-          {/* <Route path='/home' element={<Home />} /> */}
+          <Route path='/houses' element={<Houses />} />
           <Route path='search' element={<Search />}/>
         </Route>
       </Routes>

@@ -22,10 +22,6 @@ export function CharacterCard(props: {
 export function EmptyCard() {
   return (
     <div className="container d-flex m-2 align-items-center">
-      <div
-        className="bg-dark"
-        style={{ width: "200px", height: "200px" }}
-      ></div>
       <h2 className="text-danger ms-5">No matches!</h2>
     </div>
   );

@@ -45,5 +45,11 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.17.0"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi":true,
+    "jsxSingleQuote": true
   }
 }

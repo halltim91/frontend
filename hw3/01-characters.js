@@ -1,6 +1,6 @@
 // url for the Thrones API
-const url = "https://thronesapi.com/api/v2/Characters";
-const content = document.getElementById("content");
+const url = 'https://thronesapi.com/api/v2/Characters';
+const content = document.getElementById('content');
 
 fetch(url)
   .then((resp) => resp.json())
@@ -16,12 +16,12 @@ function displaystuff(data) {
 }
 
 function createElement(character) {
-  const div = document.createElement("div");
-  const img = document.createElement("img");
-  const name = document.createElement("h4");
-  const title = document.createElement("p");
+  const div = document.createElement('div');
+  const img = document.createElement('img');
+  const name = document.createElement('h4');
+  const title = document.createElement('p');
 
-  div.classList.add("mycard");
+  div.classList.add('mycard');
   img.src = character.imageUrl;
   img.alt = character.image;
   name.innerText = character.fullName;

@@ -1,36 +1,36 @@
-import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 ChartJS.register(ArcElement, Tooltip);
 
 const backgroundColors = [
-  "rgba(54, 162, 235, 0.5)",
-  "rgba(255, 206, 86, 0.5)",
-  "rgba(255, 99, 132, 0.5)",
-  "rgba(75, 192, 192, 0.5)",
-  "rgba(153, 102, 255, 0.5)",
-  "rgba(255, 159, 64, 0.5)",
-  "rgba(199, 199, 199, 0.5)",
-  "rgba(83, 102, 255, 0.5)",
-  "rgba(40, 159, 64, 0.5)",
-  "rgba(210, 199, 199, 0.5)",
-  "rgba(78, 52, 199, 0.5)",
+  'rgba(54, 162, 235, 0.5)',
+  'rgba(255, 206, 86, 0.5)',
+  'rgba(255, 99, 132, 0.5)',
+  'rgba(75, 192, 192, 0.5)',
+  'rgba(153, 102, 255, 0.5)',
+  'rgba(255, 159, 64, 0.5)',
+  'rgba(199, 199, 199, 0.5)',
+  'rgba(83, 102, 255, 0.5)',
+  'rgba(40, 159, 64, 0.5)',
+  'rgba(210, 199, 199, 0.5)',
+  'rgba(78, 52, 199, 0.5)',
 ];
 
 const borderColors = [
-  "rgba(54, 162, 235, 1)",
-  "rgba(255, 206, 86, 1)",
-  "rgba(255, 99, 132, 1)",
-  "rgba(75, 192, 192, 1)",
-  "rgba(153, 102, 255, 1)",
-  "rgba(255, 159, 64, 1)",
-  "rgba(159, 159, 159, 1)",
-  "rgba(83, 102, 255, 1)",
-  "rgba(40, 159, 64, 1)",
-  "rgba(210, 199, 199, 1)",
-  "rgba(78, 52, 199, 1)",
+  'rgba(54, 162, 235, 1)',
+  'rgba(255, 206, 86, 1)',
+  'rgba(255, 99, 132, 1)',
+  'rgba(75, 192, 192, 1)',
+  'rgba(153, 102, 255, 1)',
+  'rgba(255, 159, 64, 1)',
+  'rgba(159, 159, 159, 1)',
+  'rgba(83, 102, 255, 1)',
+  'rgba(40, 159, 64, 1)',
+  'rgba(210, 199, 199, 1)',
+  'rgba(78, 52, 199, 1)',
 ];
 
 export default function Chart() {
@@ -38,7 +38,7 @@ export default function Chart() {
     labels: [],
     datasets: [
       {
-        label: "# of members",
+        label: '# of members',
         data: [],
         backgroundColor: backgroundColors,
         borderColor: borderColors,
@@ -49,17 +49,17 @@ export default function Chart() {
 
   useEffect(() => {
     axios
-      .get("https://thronesapi.com/api/v2/Characters")
+      .get('https://thronesapi.com/api/v2/Characters')
       .then((resp) => {
         setdata(getData(resp.data));
         return resp;
       })
       .catch((err) => {
-        console.log("Error:\n" + err);
+        console.log('Error:\n' + err);
       });
   }, []);
 
-  return <Doughnut className="p-3" data={data} />;
+  return <Doughnut className='p-3' data={data} />;
 }
 
 /* creats a chart data object with the character data*/
@@ -72,8 +72,8 @@ function getData(data) {
     let index = matchHouse(family, families);
 
     //consolidate families that don't have 'House ' in the name
-    if (index === -1 && !family.includes("House ")) {
-      family = "Non-House Family";
+    if (index === -1 && !family.includes('House ')) {
+      family = 'Non-House Family';
       index = families.findIndex((e) => e.includes(family));
     }
 
@@ -89,7 +89,7 @@ function getData(data) {
     labels: families,
     datasets: [
       {
-        label: "# of members",
+        label: '# of members',
         data: numMembers,
         backgroundColor: backgroundColors,
         borderColor: borderColors,
@@ -107,8 +107,8 @@ function matchHouse(fam, families) {
   const j = families.findIndex(
     (e) =>
       levenshteinDistance(
-        fam.replace("House ", ""),
-        e.replace("House ", "")
+        fam.replace('House ', ''),
+        e.replace('House ', '')
       ) === 1
   );
   return j;
@@ -118,7 +118,7 @@ function matchHouse(fam, families) {
  Levenshtein Distance: Finds the number of differences between 2 strings
  From https://www.tutorialspoint.com/levenshtein-distance-in-javascript
 */
-function levenshteinDistance(str1 = "", str2 = "") {
+function levenshteinDistance(str1 = '', str2 = '') {
   const track = Array(str2.length + 1)
     .fill(null)
     .map(() => Array(str1.length + 1).fill(null));

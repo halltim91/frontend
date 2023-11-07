@@ -1,0 +1,15 @@
+.navlink {
+    text-decoration: none;
+    height: 100%;
+    padding: 1rem;
+    color: white;
+    font-weight: bolder;
+}
+
+.navlink:hover {
+    background-color: purple;
+}
+
+.navlink:active {
+    background-color: green;
+}

@@ -1,15 +1,22 @@
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+ChartJS.register(ArcElement, Tooltip);
+
 const backgroundColors = [
-  'rgba(54, 162, 235, 0.8)',
-  'rgba(255, 206, 86, 0.8)',
-  'rgba(255, 99, 132, 0.8)',
-  'rgba(75, 192, 192, 0.8)',
-  'rgba(153, 102, 255, 0.8)',
-  'rgba(255, 159, 64, 0.8)',
-  'rgba(199, 199, 199, 0.8)',
-  'rgba(83, 102, 255, 0.8)',
-  'rgba(40, 159, 64, 0.8)',
-  'rgba(210, 199, 199, 0.8)',
-  'rgba(78, 52, 199, 0.8)',
+  'rgba(54, 162, 235, 0.5)',
+  'rgba(255, 206, 86, 0.5)',
+  'rgba(255, 99, 132, 0.5)',
+  'rgba(75, 192, 192, 0.5)',
+  'rgba(153, 102, 255, 0.5)',
+  'rgba(255, 159, 64, 0.5)',
+  'rgba(199, 199, 199, 0.5)',
+  'rgba(83, 102, 255, 0.5)',
+  'rgba(40, 159, 64, 0.5)',
+  'rgba(210, 199, 199, 0.5)',
+  'rgba(78, 52, 199, 0.5)',
 ];
 
 const borderColors = [
@@ -26,50 +33,43 @@ const borderColors = [
   'rgba(78, 52, 199, 1)',
 ];
 
-// url for the Thrones API
-const url = 'https://thronesapi.com/api/v2/Characters';
-
-const renderChart = () => {
-  const donutChart = document.querySelector('.donut-chart');
-
-  new Chart(donutChart, {
-    type: 'doughnut',
-    data: {
-      labels: families,
-      datasets: [
-        {
-          label: 'Game of Thrones Houses',
-          data: numMembers,
-          backgroundColor: backgroundColors,
-          borderColor: borderColors,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      legend: {
-        display: false,
+export default function Chart() {
+  const [data, setdata] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: '# of members',
+        data: [],
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
+        borderWidth: 3,
       },
-    },
+    ],
   });
-};
 
-fetch(url)
-  .then((resp) => resp.json())
-  .then(findDistro)
-  .then(renderChart)
-  .catch((err) => console.log(`error getting data: ${err}`));
+  useEffect(() => {
+    axios
+      .get('https://thronesapi.com/api/v2/Characters')
+      .then((resp) => {
+        setdata(getData(resp.data));
+        return resp;
+      })
+      .catch((err) => {
+        console.log('Error:\n' + err);
+      });
+  }, []);
 
-let families = [];
-let numMembers = [];
+  return <Doughnut className='p-3' data={data} />;
+}
 
-/* Sorts all the characters either into houses or non-house family group.
- */
-function findDistro(data) {
-  // console.log(data);
+/* creats a chart data object with the character data*/
+function getData(data) {
+  let families = [];
+  let numMembers = [];
+
   for (let i = 0; i < data.length; i++) {
     let family = data[i].family;
-    let index = matchHouse(family);
+    let index = matchHouse(family, families);
 
     //consolidate families that don't have 'House ' in the name
     if (index === -1 && !family.includes('House ')) {
@@ -84,14 +84,22 @@ function findDistro(data) {
       numMembers[index] += 1;
     }
   }
-  return data;
+
+  return {
+    labels: families,
+    datasets: [
+      {
+        label: '# of members',
+        data: numMembers,
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
+        borderWidth: 3,
+      },
+    ],
+  };
 }
 
-/*
-Looks for any houses that are already in the list, also check for any 
-house names that are similarly spelt
-*/
-function matchHouse(fam) {
+function matchHouse(fam, families) {
   //if the name is already in the list or its a part of another name
   const i = families.findIndex((e) => e.includes(fam));
   if (i > -1) return i;
@@ -105,6 +113,7 @@ function matchHouse(fam) {
   );
   return j;
 }
+
 /*
  Levenshtein Distance: Finds the number of differences between 2 strings
  From https://www.tutorialspoint.com/levenshtein-distance-in-javascript
